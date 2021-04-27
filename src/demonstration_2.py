@@ -46,13 +46,43 @@ Notes:
 - All characters in words[i] and order are English lowercase letters.
 """
 def are_words_sorted(words, alpha_order):
-    """
-    Inputs:
-    words: List[str]
-    alpha_order: str
+    order_dict = {}
 
-    Output:
-    bool
-    """
-    # Your code here
+    for index, char in enumerate(alpha_order):
+        order_dict[char] = index
 
+
+    for i in range(len(words) - 1):
+        word_1 = words[i]
+        word_2 = words[i + 1]
+
+        for j in range(min(len(word_1), len(word_2))):
+            letter_1 = word_1[j]
+            letter_2 = word_2[j]
+            if letter_1 == letter_2:
+                continue
+            index_1 = alpha_order.index(letter_1)
+            index_2 = alpha_order.index(letter_2)
+            if index_1 > index_2:
+                return False
+            else:
+                break
+        else:
+            return False
+
+    return True
+
+words = ["lambda","school"]
+order = "hlabcdefgijkmnopqrstuvwxyz"
+
+print(are_words_sorted(words, order))
+
+words = ["lambda","lamb"]
+order = "abcdefghijklmnopqrstuvwxyz"
+
+print(are_words_sorted(words, order))
+
+words = ["were","where","yellow"] 
+order = "habcdefgijklmnopqrstuvwxyz"
+
+print(are_words_sorted(words, order))
